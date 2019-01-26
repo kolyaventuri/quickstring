@@ -1,0 +1,19 @@
+{
+  "name": "quickstring",
+  "version": "1.0.0",
+  "description": "Quickly format strings",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kolyaventuri/quickstring.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kolyaventuri/quickstring/issues"
+  },
+  "homepage": "https://github.com/kolyaventuri/quickstring#readme"
+}
