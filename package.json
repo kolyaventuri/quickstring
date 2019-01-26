@@ -4,7 +4,8 @@
   "description": "Quickly format strings",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "xo && ava",
+    "lint": "xo"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,16 @@
   "bugs": {
     "url": "https://github.com/kolyaventuri/quickstring/issues"
   },
-  "homepage": "https://github.com/kolyaventuri/quickstring#readme"
+  "homepage": "https://github.com/kolyaventuri/quickstring#readme",
+  "devDependencies": {
+    "ava": "^1.1.0",
+    "pre-commit": "^1.2.2",
+    "xo": "^0.24.0"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "xo": {
+    "spaces": true
+  }
 }
