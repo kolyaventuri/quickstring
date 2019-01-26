@@ -26,6 +26,6 @@
     "lint"
   ],
   "xo": {
-    "spaces": true
+    "space": true
   }
 }
