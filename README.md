@@ -1,4 +1,5 @@
 # QuickString
+[![CircleCI](https://circleci.com/gh/kolyaventuri/quickstring.svg?style=svg)](https://circleci.com/gh/kolyaventuri/quickstring)\
 A quick an easy string formatter / library.
 
 ## Installation
