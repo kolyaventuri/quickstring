@@ -11,6 +11,15 @@ const formatString = (string, args) => {
   return string;
 };
 
+const getPart = parts => {
+  let part = parts.shift();
+  if (randomTag.test(part)) {
+    part = part.split('[?]')[0];
+  }
+
+  return part;
+};
+
 class StringFormatter {
   constructor(strings) {
     this.strings = strings;
@@ -18,30 +27,28 @@ class StringFormatter {
     this.getString = this.getString.bind(this);
   }
 
-  getString(key, args = {}) {
-    const parts = key.split('.');
-    let unformattedString = '';
-    let {strings} = this;
-
-    for (let part of parts) {
-      let randomKey = null;
-      if (randomTag.test(part)) {
-        part = part.split('[?]')[0];
-      }
-
-      if (typeof strings[part] === 'string') {
-        unformattedString = strings[part];
-      } else if (Array.isArray(strings[part])) {
-        randomKey = ~~(Math.random() * strings[part].length);
-        unformattedString = strings[part][randomKey];
-      } else if (typeof strings[part] === 'undefined') {
-        return key;
-      }
-
-      strings = randomKey === null ? strings[part] : strings[part][randomKey];
+  getString(parts, args = {}, stringObj = this.strings, key = null) {
+    if (typeof parts === 'string') {
+      return this.getString(parts.split('.'), args, stringObj, parts);
     }
 
-    return formatString(unformattedString, args);
+    if (typeof stringObj === 'string') {
+      return formatString(stringObj, args);
+    }
+
+    const part = getPart(parts);
+    const subPart = stringObj[part];
+
+    if (typeof subPart === 'undefined') {
+      return key;
+    }
+
+    if (Array.isArray(subPart)) {
+      const randomKey = ~~(Math.random() * subPart.length);
+      return this.getString(parts, args, subPart[randomKey], key);
+    }
+
+    return this.getString(parts, args, subPart, key);
   }
 }
 

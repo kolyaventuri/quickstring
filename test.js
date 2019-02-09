@@ -37,6 +37,15 @@ test('formats variables in strings', t => {
   t.is(result, expected);
 });
 
+test('returns given key if strig does not exist', t => {
+  const {getString} = new StringFormatter(strings);
+
+  const key = 'string.no.exist';
+  const result = getString(key);
+
+  t.is(result, key);
+});
+
 test('returns nested strings', t => {
   const {getString} = new StringFormatter(strings);
 
