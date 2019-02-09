@@ -1,3 +1,5 @@
+const randomTag = /\[?\]$/;
+
 const formatString = (string, args) => {
   const names = Object.keys(args);
 
@@ -21,14 +23,22 @@ class StringFormatter {
     let unformattedString = '';
     let {strings} = this;
 
-    for (const part of parts) {
+    for (let part of parts) {
+      let randomKey = null;
+      if (randomTag.test(part)) {
+        part = part.split('[?]')[0];
+      }
+
       if (typeof strings[part] === 'string') {
         unformattedString = strings[part];
+      } else if (Array.isArray(strings[part])) {
+        randomKey = ~~(Math.random() * strings[part].length);
+        unformattedString = strings[part][randomKey];
       } else if (typeof strings[part] === 'undefined') {
         return key;
       }
 
-      strings = strings[part];
+      strings = randomKey === null ? strings[part] : strings[part][randomKey];
     }
 
     return formatString(unformattedString, args);

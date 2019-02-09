@@ -6,7 +6,18 @@ const strings = {
   stringB: 'string {varA} {varB} {varC}',
   data: {
     stringC: 'I am a nested string'
-  }
+  },
+  random: [
+    'string1',
+    'string2',
+    'string3',
+    'string4'
+  ],
+  randomData: [
+    {
+      data: 'I am random string data'
+    }
+  ]
 };
 
 test('returns strings', t => {
@@ -32,4 +43,22 @@ test('returns nested strings', t => {
   const result = getString('data.stringC');
 
   t.is(result, strings.data.stringC);
+});
+
+test('returns random string if provided an array', t => {
+  const {getString} = new StringFormatter(strings);
+
+  const result = getString('random[?]');
+  const resultB = getString('random[?]');
+
+  t.true(strings.random.includes(result));
+  t.true(strings.random.includes(resultB));
+});
+
+test('returns nested data in random string', t => {
+  const {getString} = new StringFormatter(strings);
+
+  const result = getString('randomData[?].data');
+
+  t.is(result, strings.randomData[0].data);
 });
