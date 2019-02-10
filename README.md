@@ -49,6 +49,38 @@ getString('myString', {name: 'John'}); // "Hello, John!"
 getString('myString', {name: 'world'}); // "Hello, world!"
 ```
 
+In the event you want a random string choice, an array can be added to the JSON and selected using the `[?]` syntax.
+```js
+const strings = {
+  random: [
+    'String A',
+    'String B'
+  ]
+};
+
+...
+
+getString('random[?]'); // "String A" or "String B"
+```
+
+Nested objects can be stored in arrays, but be aware that this can cause unexpected behavior if the nested schema is not consistent.
+```js
+const string = {
+  random: [
+    {
+      data: 'Some data'
+    },
+    {
+      data: 'Some more data'
+    }
+  ]
+};
+
+...
+
+getString('random[?].data'); // "Some data" or "Some more data"
+```
+
 ## Running tests
 Run tests simply with `npm test`
 
